@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block head %}
+  {{ super() }}  {# keeps base header content, optional #}
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <nav>
+            <a class="nav-item" href="{{ url_for('overview') }}">
+              <img src="{{ url_for('static', filename='img/overview.png') }}" alt="Overview logo" class="nav-icon">
+              Overview
+            </a>
+            <a class="nav-item" href="{{ url_for('servers') }}">
+              <img src="{{ url_for('static', filename='img/server.png') }}" alt="Servers logo" class="nav-icon">
+              Servers
+            </a>
+    
+            <a class="nav-item" href="{{ url_for('history') }}">
+              <img src="{{ url_for('static', filename='img/history.png') }}" alt="History logo" class="nav-icon">
+              History
+            </a>
+            <a class="nav-item" href="{{ url_for('users') }}">
+              <img src="{{ url_for('static', filename='img/user.png') }}" alt="User logo" class="nav-icon">
+              Users
+            </a>
+            <a class="nav-item" href="{{ url_for('docker') }}">
+              <img src="{{ url_for('static', filename='img/docker.png') }}" alt="Docker logo" class="nav-icon">
+              Docker
+            </a>
+         
+        </nav>
+    </nav>
+{% endblock %}
+
+{% block header %}
+    <div class="title">Compute Resource Platform</div>
+{% endblock %}
+
+
+{% block content %}
+<section class="home-intro">
+    <h2>Compute Resource Platform</h2>
+    <p>
+      This site provides an overview of the compute resources available at our Chair of Computational Neuroscience.
+      Use the navigation to inspect clusters and servers, review usage history, and manage user access.
+    </p>
+
+    <h3>What you can do here</h3>
+    <ul>
+      <li><strong>Overview:</strong> High-level status of compute infrastructure.</li>
+      <li><strong>Servers (Work in Progress):</strong> Per-server health, specs, and availability.</li>
+      <li><strong>History  (Work in Progress):</strong> Recent jobs, utilization, and events.</li>
+      <li><strong>Users  (Work in Progress):</strong> Get an overview of processes of a single user.</li>
+      <li><strong>Docker  (Work in Progress):</strong> Container images and runtime information.</li>
+    </ul>
+
+    <h3>Contact</h3>
+    <p>
+      If anything is unclear or you encounter problems, contact the compute support team:
+      <br>
+      Email: <a href="mailto:jan.huehne@tum.de">jan.huehne@tum.de</a>
+      <br>
+      Or contact Jan via Slack
+      <br>
+    </p>
+  </section>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}

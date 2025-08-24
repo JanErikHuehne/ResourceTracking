@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{% block title %}My App{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {% block head %}{% endblock %}
+
+
+    </head>
+    <body>
+        <div class="app">
+            <!-- LEFT MENU -->
+            <aside>
+                
+                <div class="logo">
+                    <a href="{{ url_for('index') }}">
+                      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="My App Logo">
+                    </a>
+                </div>
+                <div class="sidebar-title">
+                    Chair of<br>
+                    Computational Neuroscience<br>
+                    Compute Ressources <br> 
+                    v1
+                  </div>
+                {% block sidebar %}
+                    <nav>…</nav>
+                {% endblock %}
+            </aside>
+
+            <div class="content">
+                <header>
+                    {% block header %}
+                      <h1>{{ page_title|default('Dashboard') }}</h1>
+                    {% endblock %}
+                </header>
+
+                <main>
+                    {% block content %}{% endblock %}
+                </main>
+            </div>
+        </div>
+        {% block scripts %}
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+        {% endblock %}
+       
+    </body>
+</html>

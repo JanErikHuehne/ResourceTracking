@@ -1,0 +1,253 @@
+html, body { height: 100%; }
+body {
+margin: 0;
+font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+background: var(--bg);
+color: var(--text);
+overflow: hidden;                 /* page itself never scrolls */
+}
+
+/* Shell: sidebar + right content */
+.app {
+display: grid;
+grid-template-columns: 260px 1fr;
+height: 100vh;                    /* full viewport height */
+}
+
+/* Sidebar */
+aside {
+background: var(--panel-2);
+padding: 16px 16px;
+display: flex;
+flex-direction: column;
+gap: 16px;
+border-right: 1px solid rgba(255,255,255,.06);
+}
+
+nav { margin-top: 20px; display: flex; flex-direction: column; gap: 40px; }
+.nav-item {
+display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+border-radius: 10px; color: var(--muted); text-decoration: none;
+transition: background .15s ease, color .15s ease;
+}
+
+.nav-item .nav-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.nav-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
+.nav-item.active { background: rgba(91,140,255,.15); color: var(--text); }
+
+/* Right column layout */
+.content {
+display: flex; flex-direction: column;
+min-width: 0; min-height: 0;      /* allow children to shrink */
+}
+
+header {
+flex: 0 0 auto;
+display: flex; justify-content: center; align-items: center;
+padding: 18px 22px;
+border-bottom: 1px solid rgba(255,255,255,.06);
+background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0));
+}
+.title { font-size: 40px; font-weight: 700; letter-spacing: .2px; }
+
+main {
+flex: 1 1 auto;
+display: flex; flex-direction: column;
+min-height: 0;                    /* critical */
+overflow: hidden;                 /* no scroll here */
+padding: 22px;
+}
+
+/* Make the chain shrinkable */
+.right-stack {
+display: flex;                    /* was block */
+flex: 1 1 auto;
+min-height: 0;                    /* critical */
+}
+
+.panel {
+flex: 1 1 auto;
+display: flex; flex-direction: column;
+min-height: 0;                    /* critical */
+}
+
+/* The ONLY vertical scroll container */
+.res-grid {
+flex: 1 1 auto;
+min-height: 0;                    /* critical */
+display: grid;
+grid-template-columns: repeat(4, 1fr);  /* was 3 → now 4 equal columns */
+grid-auto-rows: 44px;
+gap: 10px;
+padding: 4px;
+overflow-y: auto;                 /* scroll lives here */
+scrollbar-gutter: stable;         /* visible gutter on macOS */
+}
+
+/* Cells */
+.res-cell {
+display: grid;
+grid-template-columns: 54px 1fr;  /* label | bar */
+align-items: center; gap: 10px;
+padding: 0 12px;
+}
+.metric-label { font-size: 12px; color: var(--muted); letter-spacing: .2px; }
+
+/* Resource bar */
+.rb { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; width: 100%; }
+.rb-track { position: relative; height: 14px; background: #f1f3f5; border-radius: 999px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,.12); }
+.rb-seg { height: 100%; display: block; width: calc(var(--w,0) * 1%); }
+.rb-seg + .rb-seg { margin-left: 0; }
+.rb-seg.usr{background:#2ca02c;}
+.rb-seg.sys{background:#d62728;} 
+.rb-seg.iow{background:#ff7f0e;}
+.rb-seg.high{background:#840101;} 
+.rb-seg.medium{background:#d5912b;} 
+.rb-seg.low{background:#2ca02c;} 
+.rb-seg.mem{background:#17becf;} 
+.rb-seg.dsk{background:#1f77b4;} 
+.rb-seg.idle{background:#e9ecef;}
+.rb-seg.gpu{background:#2ca02c;} 
+.rb-pct { font-variant-numeric: tabular-nums; font-size: 12px; color: #222; min-width: 3.2ch; text-align: right; background: rgba(255,255,255,.65); padding: 2px 6px; border-radius: 6px; }
+
+/* IP row spanning all 3 columns */
+.res-ip {
+grid-column: 1 / -1;
+text-align: center; font-weight: 600; font-size: 20px; letter-spacing: .3px;
+padding: 6px 0; color: var(--text);
+background: rgba(255,255,255,.05); border-radius: 8px; margin-top: 24px;
+}
+
+
+/* Base ring spinner */
+.spinner {
+    width: 70px;
+    height: 70px;
+    border: 3px solid rgba(0,0,0,0.15);   /* track */
+    border-top-color: currentColor;        /* the colored arc */
+    border-radius: 50%;
+    color: #5b8cff;                        /* spinner color */
+    animation: spin 0.8s linear infinite;
+    /* Center if you place it in an empty container */
+    margin: 20px auto;
+    vertical-align: middle;
+  }
+  /* make your block a flexbox */
+.panel-spinner {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    min-height: 0;            /* important for scroll layouts */
+  }
+  /* Full-screen overlay variant */
+  .spinner-overlay {
+    position: fixed;
+    inset: 0;                        /* top:0; right:0; bottom:0; left:0 */
+    display: flex;
+    justify-content: center;         /* horizontal center */
+    align-items: center;             /* vertical center */
+    background: rgba(0,0,0,0.1);     /* optional dim backdrop */
+    z-index: 1000;
+  }
+  
+  /* Accessibility helpers */
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,1px,1px); white-space: nowrap; border: 0;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation-duration: 1.6s; }
+  }
+
+
+  .server-form {
+    display: inline-block;   /* keeps form compact */
+    margin: 0;               /* remove extra spacing */
+    padding: 10px;           /* optional breathing room */
+    text-align: left;        /* enforce left alignment */
+  }
+
+
+  aside .logo {
+    padding: 1rem 1rem 0 1rem;  /* top right bottom left */
+    text-align: center;   /* center in sidebar; use left if you prefer */
+  }
+  
+  aside .logo img {
+    max-width: 120px;     /* scale to fit sidebar */
+    height: auto;
+    display: block;
+    margin: 0 auto;       /* center horizontally */
+  }
+
+  .sidebar-title {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    
+    line-height: 1.3;
+    padding: 0;
+  }
+
+
+  .home-intro {
+    padding: 40px 0px 0px 40px;
+    max-width: 80ch;
+  }
+  
+  .home-intro h2 {
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .home-intro h3 {
+    margin: 1.25rem 0 0.5rem;
+  }
+  
+  .home-intro ul {
+    margin: 0 0 1rem 1.25rem; 
+    padding: 0;
+  }
+  
+  .home-intro li + li {
+    margin-top: 0.25rem;
+  }
+
+  .wip {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;    /* centers it in the content area */
+    text-align: center;
+    color: #b33;         /* red-ish accent */
+    font-weight: bold;
+  }
+  
+  .wip h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+  }
+
+
+  /* Your grid container defines the columns; this spans across them all */
+.res-error {
+    grid-column: 1 / -1;
+    background: #ffe7e7;
+    border: 1px solid #e03131;
+    color: #a11212;
+    text-align: center;
+    font-weight: 700;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+  }

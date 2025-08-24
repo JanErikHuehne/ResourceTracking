@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block head %}
+  {{ super() }}  {# keeps base header content, optional #}
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <nav>
+            <a class="nav-item" href="{{ url_for('overview') }}">
+              <img src="{{ url_for('static', filename='img/overview.png') }}" alt="Overview logo" class="nav-icon">
+              Overview
+            </a>
+            <a class="nav-item" href="{{ url_for('servers') }}">
+              <img src="{{ url_for('static', filename='img/server.png') }}" alt="Servers logo" class="nav-icon">
+              Servers
+            </a>
+    
+            <a class="nav-item" href="{{ url_for('history') }}">
+              <img src="{{ url_for('static', filename='img/history.png') }}" alt="History logo" class="nav-icon">
+              History
+            </a>
+            <a class="nav-item" href="{{ url_for('users') }}">
+              <img src="{{ url_for('static', filename='img/user.png') }}" alt="User logo" class="nav-icon">
+              Users
+            </a>
+            <a class="nav-item active" href="{{ url_for('docker') }}">
+              <img src="{{ url_for('static', filename='img/docker.png') }}" alt="Docker logo" class="nav-icon">
+              Docker
+            </a>
+         
+        </nav>
+    </nav>
+{% endblock %}
+
+{% block header %}
+    <div class="title">Compute Ressources : Docker</div>
+{% endblock %}
+
+
+{% block content %}
+  <div class="wip">
+    <h2>🚧 WORK IN PROGRESS 🚧</h2>
+    <p>This section is currently under development.</p>
+  </div>
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
