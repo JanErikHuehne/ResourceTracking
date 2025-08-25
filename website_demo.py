@@ -153,7 +153,6 @@ def db_history():
             FROM resource_history
             {where_clause}
             ORDER BY ts DESC
-            LIMIT %s
         """.format(where_clause=("WHERE " + " AND ".join(where)) if where else "") 
         
         with psycopg2.connect(DB_DSN) as conn, conn.cursor(cursor_factory=RealDictCursor) as cur:
