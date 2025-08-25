@@ -40,13 +40,36 @@
 
 
 {% block content %}
-  <div class="wip">
-    <h2>🚧 WORK IN PROGRESS 🚧</h2>
-    <p>This section is currently under development.</p>
-  </div>
+    <div class="row">
+        <label>Range:
+        <select id="range">
+            <option value="intraday">Intraday</option>
+            <option value="last_week">Last week</option>
+            <option value="last_month">Last month</option>
+            <option value="last_year">Last year</option>
+            <option value="all">All</option>
+            <option value="custom">Custom…</option>
+        </select>
+        </label>
+        <span id="custom" class="row">
+        <label>Start <input id="start" type="datetime-local"></label>
+        <label>End <input id="end" type="datetime-local"></label>
+        </span>
+        <button id="load">Load</button>
+    </div>
+    <div class="muted">Custom times are interpreted as Europe/Berlin.</div>
+
+    <table id="tbl">
+        <thead>
+        <tr>
+            <th>server_id</th><th>ts</th><th>up</th><th>cpu%</th><th>mem</th><th>disk</th><th>gpu%</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 {% endblock %}
 
 
 {% block scripts %}
-
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
 {% endblock %}

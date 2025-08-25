@@ -251,3 +251,11 @@ background: rgba(255,255,255,.05); border-radius: 8px; margin-top: 24px;
     padding: 0.5rem 0.75rem;
     border-radius: 4px;
   }
+
+
+.row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+th, td { border: 1px solid #ccc; padding: .4rem .6rem; font-size: 14px; }
+th { background: #f6f6f6; position: sticky; top: 0; }
+#custom { display: none; gap: .5rem; }
+.muted { color:#666; font-size: 12px; }
