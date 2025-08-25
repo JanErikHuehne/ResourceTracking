@@ -134,26 +134,37 @@ def servers():
 
 @app.get("/api/history")
 def db_history():
-    start_utc, end_utc = compute_window(request.args)
-    where = []
-    params = []
-    if start_utc is not None:
-        where.append("ts >= %s"); params.append(start_utc)
-    if end_utc is not None:
-        where.append("ts < %s"); params.append(end_utc)
-        
-    sql = """
-        SELECT server_id, ts, up, cpu_usage, memory, disk, gpu_usage
-        FROM resource_history
-        {where_clause}
-        ORDER BY ts DESC
-        LIMIT %s
-    """.format(where_clause=("WHERE " + " AND ".join(where)) if where else "") 
+    try:
+        if not DB_DSN:
+            raise RuntimeError("DB_DSN is not set")
     
-    with psycopg2.connect(DB_DSN) as conn, conn.cursor(cursor_factory=RealDictCursor) as cur:
-        cur.execute(sql, params)
-        rows = cur.fetchall()
-    return jsonify(rows)
+        
+        start_utc, end_utc = compute_window(request.args)
+        where = []
+        params = []
+        if start_utc is not None:
+            where.append("ts >= %s"); params.append(start_utc)
+        if end_utc is not None:
+            where.append("ts < %s"); params.append(end_utc)
+            
+        sql = """
+            SELECT server_id, ts, up, cpu_usage, memory, disk, gpu_usage
+            FROM resource_history
+            {where_clause}
+            ORDER BY ts DESC
+            LIMIT %s
+        """.format(where_clause=("WHERE " + " AND ".join(where)) if where else "") 
+        
+        with psycopg2.connect(DB_DSN) as conn, conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(sql, params)
+            rows = cur.fetchall()
+            
+        return jsonify(rows)
+    except Exception as e:
+        app.logger.exception("history failed")
+        return jsonify({"error": str(e)}), 500
+   
+    
 
 @app.post("/select_server")
 def select_server():
