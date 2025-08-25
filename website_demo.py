@@ -3,6 +3,7 @@ from get_info import collect_all, PersistentSSHManager
 from dataclasses import dataclass
 import paramiko
 import time
+import psycopg2
 import os 
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo 
