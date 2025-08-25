@@ -1,7 +1,7 @@
 
 
 const rangeSel = document.getElementById('range');
-const customBox = document.getElementsById('custom');
+const customBox = document.getElementById('custom');
 
 rangeSel.addEventListener('change', () => { 
     customBox.style.display = rangeSel.value === 'custom' ? 'flex' : 'none';
