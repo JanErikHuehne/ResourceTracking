@@ -66,14 +66,23 @@
     </label>
     <span style="margin-left:8px"><span id="viewLabel">Table view</span></span>
 
-     <table id="tbl">
+
+    <!-- Chart container -->
+    <div id="chartWrap" style="display:none; margin-top:1rem;">
+      <canvas id="chart" height="120"></canvas>
+    </div>
+    
+     <!-- Table container -->
+    <div id="tableWrap" style="margin-top:1rem;">
+      <table id="tbl">
         <thead>
-        <tr>
+          <tr>
             <th>server_id</th><th>ts</th><th>up</th><th>cpu%</th><th>mem</th><th>disk</th><th>gpu%</th>
-        </tr>
+          </tr>
         </thead>
         <tbody></tbody>
-    </table>
+      </table>
+    </div>
 
 
 
