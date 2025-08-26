@@ -1,7 +1,17 @@
 
 
 const rangeSel = document.getElementById('range');
-const customBox = document.getElementById('custom');
+const customSpan = document.getElementById('custom');
+const loadBtn = document.getElementById('load');
+const toggleView = document.getElementById('toggleView');
+const viewLabel = document.getElementById('viewLabel');
+const tableWrap = document.getElementById('tableWrap');
+const chartWrap = document.getElementById('chartWrap');
+const tbody = document.querySelector('#tbl tbody');
+const chartCanvas = document.getElementById('chart');
+
+
+
 
 rangeSel.addEventListener('change', () => { 
     customBox.style.display = rangeSel.value === 'custom' ? 'flex' : 'none';
@@ -9,6 +19,13 @@ rangeSel.addEventListener('change', () => {
 
 })
 
+toggleView.addEventListener('change', () => {
+  const chartMode = toggleView.checked;
+  chartWrap.style.display = chartMode ? '' : 'none';
+  tableWrap.style.display = chartMode ? "none" : '';
+  viewLabel.textContent = chartMode ? ' Chart view' : 'Table view';
+
+})
 
 async function load() {
     const params = new URLSearchParams();

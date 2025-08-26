@@ -58,12 +58,15 @@
         <button id="load">Load</button>
     </div>
     <div class="muted">Custom times are interpreted as Europe/Berlin.</div>
-    <!-- Rounded switch -->
-    <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
+    
+    <!-- View switch -->
+    <label class="switch" title="Toggle chart/table">
+      <input id="toggleView" type="checkbox">
+      <span class="slider round"></span>
     </label>
-    <table id="tbl">
+    <span style="margin-left:8px"><span id="viewLabel">Table view</span></span>
+
+     <table id="tbl">
         <thead>
         <tr>
             <th>server_id</th><th>ts</th><th>up</th><th>cpu%</th><th>mem</th><th>disk</th><th>gpu%</th>
@@ -71,9 +74,15 @@
         </thead>
         <tbody></tbody>
     </table>
+
+
+
 {% endblock %}
 
 
 {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="{{ url_for('static', filename='js/history.js') }}"></script>
+
 {% endblock %}
