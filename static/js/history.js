@@ -21,8 +21,8 @@ rangeSel.addEventListener('change', () => {
 
 toggleView.addEventListener('change', () => {
   const chartMode = toggleView.checked;
-  chartWrap.style.display = chartMode ? '' : 'none';
-  tableWrap.style.display = chartMode ? "none" : '';
+  chartWrap.style.display = chartMode ? 'none' : '';
+  tableWrap.style.display = chartMode ? '' : 'none';
   viewLabel.textContent = chartMode ? ' Table view' : 'Chart view';
   load();
 
