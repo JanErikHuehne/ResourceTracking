@@ -23,7 +23,7 @@ toggleView.addEventListener('change', () => {
   const chartMode = toggleView.checked;
   chartWrap.style.display = chartMode ? '' : 'none';
   tableWrap.style.display = chartMode ? "none" : '';
-  viewLabel.textContent = chartMode ? ' Chart view' : 'Table view';
+  viewLabel.textContent = chartMode ? ' Table view' : 'Chart view';
   load();
 
 })
