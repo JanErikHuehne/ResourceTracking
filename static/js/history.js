@@ -24,7 +24,9 @@ toggleView.addEventListener('change', () => {
   chartWrap.style.display = chartMode ? 'none' : '';
   tableWrap.style.display = chartMode ? '' : 'none';
   viewLabel.textContent = chartMode ? ' Table view' : 'Chart view';
-  load();
+  if (viewLabel.textContent === chartMode) {
+    load();
+  }
 
 })
 
