@@ -24,6 +24,7 @@ toggleView.addEventListener('change', () => {
   chartWrap.style.display = chartMode ? '' : 'none';
   tableWrap.style.display = chartMode ? "none" : '';
   viewLabel.textContent = chartMode ? ' Chart view' : 'Table view';
+  load();
 
 })
 
@@ -56,7 +57,7 @@ async function load() {
       }
 }
 
-document.getElementById('load').addEventListener('click', load);
+// document.getElementById('load').addEventListener('click', load);
 // Auto-load on first visit
 load();
 
