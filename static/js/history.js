@@ -30,9 +30,10 @@ toggleView.addEventListener('change', () => {
 
 })
 
-async function load() {
+async function load(page_num=1) {
     const params = new URLSearchParams();
     params.set('range', rangeSel.value);
+    params.set('page_num', page_num);
     if (rangeSel.value === 'custom') {
         const s = document.getElementById('start').value;
         const e = document.getElementById('end').value;

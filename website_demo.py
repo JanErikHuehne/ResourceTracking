@@ -141,6 +141,7 @@ def db_history():
     
         
         start_utc, end_utc = compute_window(request.args)
+        page_num = request.args.get('page_num')
         where = []
         params = []
         if start_utc is not None:
@@ -153,7 +154,9 @@ def db_history():
             FROM resource_history
             {where_clause}
             ORDER BY ts DESC
-        """.format(where_clause=("WHERE " + " AND ".join(where)) if where else "") 
+            LIMIT 15
+            OFFSET {off_set}
+        """.format(where_clause=("WHERE " + " AND ".join(where)) if where else "", off_set=int(page_num)*15 if page_num and page_num.isdigit() else 0)
         
         with psycopg2.connect(DB_DSN) as conn, conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(sql, params)
